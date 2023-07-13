@@ -1,4 +1,4 @@
-package chap04
+package fanout
 
 import (
 	"fmt"

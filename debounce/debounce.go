@@ -1,12 +1,13 @@
-package chap04
+package debounce
 
 import (
 	"context"
+	"github.com/omihirofumi/cloud-native-pattern/circuitbreaker"
 	"sync"
 	"time"
 )
 
-func DebounceFirst(circuit Circuit, d time.Duration) Circuit {
+func DebounceFirst(circuit circuitbreaker.Circuit, d time.Duration) circuitbreaker.Circuit {
 	var threshold time.Time
 	var result string
 	var err error
@@ -32,7 +33,7 @@ func DebounceFirst(circuit Circuit, d time.Duration) Circuit {
 	}
 }
 
-func DebounceLast(circuit Circuit, d time.Duration) Circuit {
+func DebounceLast(circuit circuitbreaker.Circuit, d time.Duration) circuitbreaker.Circuit {
 	var threshold time.Time = time.Now()
 	var ticker *time.Ticker
 	var result string

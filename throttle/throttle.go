@@ -1,13 +1,14 @@
-package chap04
+package throttle
 
 import (
 	"context"
 	"fmt"
+	"github.com/omihirofumi/cloud-native-pattern/retry"
 	"sync"
 	"time"
 )
 
-func Throttle(e Effector, max uint, refill uint, d time.Duration) Effector {
+func Throttle(e retry.Effector, max uint, refill uint, d time.Duration) retry.Effector {
 	var tokens = max
 	var once sync.Once
 	var m sync.Mutex

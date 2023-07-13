@@ -1,13 +1,14 @@
-package chap04
+package throttle
 
 import (
 	"context"
 	"fmt"
+	"github.com/omihirofumi/cloud-native-pattern/retry"
 	"testing"
 	"time"
 )
 
-func callsCountFunction(callCounter *int) Effector {
+func callsCountFunction(callCounter *int) retry.Effector {
 	return func(ctx context.Context) (string, error) {
 		*callCounter++
 		return fmt.Sprintf("call %d", *callCounter), nil

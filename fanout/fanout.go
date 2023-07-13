@@ -1,4 +1,4 @@
-package chap04
+package fanout
 
 func Split(source <-chan int, n int) []<-chan int {
 	dests := make([]<-chan int, 0)

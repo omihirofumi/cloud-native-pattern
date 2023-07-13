@@ -1,7 +1,8 @@
-package chap04
+package debounce
 
 import (
 	"context"
+	"github.com/omihirofumi/cloud-native-pattern/circuitbreaker"
 	"sync"
 	"testing"
 	"time"
@@ -11,7 +12,7 @@ func TestDebounceFirstDataRace(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
 
-	circuit := failAfter(1)
+	circuit := circuitbreaker.failAfter(1)
 	debounce := DebounceFirst(circuit, time.Second)
 
 	wg := sync.WaitGroup{}
@@ -49,7 +50,7 @@ func TestDebounceFirstDataRace(t *testing.T) {
 func TestDebounceLastDataRace(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
-	debounce := DebounceLast(counter(), time.Second)
+	debounce := DebounceLast(circuitbreaker.counter(), time.Second)
 	wg := sync.WaitGroup{}
 
 	for count := 1; count <= 10; count++ {

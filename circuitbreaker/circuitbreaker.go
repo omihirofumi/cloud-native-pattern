@@ -1,4 +1,4 @@
-package chap04
+package circuitbreaker
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package chap04
+package future
 
 import (
 	"context"
