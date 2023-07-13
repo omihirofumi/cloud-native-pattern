@@ -2,8 +2,11 @@ package main
 
 import (
 	"context"
+	lru "github.com/hashicorp/golang-lru/v2"
 	"time"
 )
+
+const LRU_SIZE = 100
 
 type Effector func(ctx context.Context) (string, error)
 
@@ -15,13 +18,13 @@ type bucket struct {
 }
 
 func Throttle(e Effector, max uint, refill uint, d time.Duration) Throttled {
-	buckets := map[string]*bucket{}
+	buckets, _ := lru.New[string, *bucket](LRU_SIZE)
 
 	return func(ctx context.Context, uid string) (bool, string, error) {
-		b := buckets[uid]
+		b, ok := buckets.Get(uid)
 
-		if b == nil {
-			buckets[uid] = &bucket{tokens: max - 1, time: time.Now()}
+		if !ok {
+			buckets.Add(uid, &bucket{tokens: max - 1, time: time.Now()})
 
 			str, err := e(ctx)
 			return true, str, err

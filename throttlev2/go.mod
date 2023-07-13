@@ -3,6 +3,7 @@ module github.com/omihirofumi/cloud-native-pattern/throttlev2
 go 1.20
 
 require (
+	github.com/hashicorp/golang-lru/v2 v2.0.4 // indirect
 	github.com/labstack/echo/v4 v4.10.2 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
